@@ -5,7 +5,6 @@ using namespace std;
 constexpr long long INF = (1LL << 62) - 1;
 using ll = long long;
 
-
 // C問題
 /*int main(){
     int N;
@@ -84,7 +83,7 @@ using ll = long long;
 }*/
 
 // D問題
-struct fast_ios {
+/*struct fast_ios {
     fast_ios() {
         ios::sync_with_stdio(false);
         cin.tie(nullptr);
@@ -121,4 +120,4 @@ int main(){
         }
     }
     rep(i, res.size()) cout << res[i] << endl;
-}
+}*/

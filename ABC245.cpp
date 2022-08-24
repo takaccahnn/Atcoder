@@ -49,7 +49,7 @@ int max_a(vector<int> A){
 }*/
 
 // C問題
-bool func(vector<int> &A, vector<int> &B, int number, vector<bool> &ans_A, vector<bool> &ans_B, int K){ //numberは比較している要素の番目
+/*bool func(vector<int> &A, vector<int> &B, int number, vector<bool> &ans_A, vector<bool> &ans_B, int K){ //numberは比較している要素の番目
 // ansは条件を満たせていれば、trueを返す
     if(ans_A[number-1]){
         if(abs(A[number-1]-A[number])<=K) ans_A[number] = true;
@@ -86,5 +86,29 @@ int main(){
     }
 
     cout << "Yes" << endl;
+    return 0;
+}*/
+
+// D問題
+int main(){
+    int N, M;
+    cin >> N >> M;
+    vector<int> A(N+1);
+    rep(i, N+1) cin >> A[i];
+    vector<int> C(N+M+1);
+    rep(i, N+M+1) cin >> C[i];
+    vector<int> B(M+1);
+
+    for(int i = M; i>=0; i--){
+        B[i] = C[i+N]/A[N];
+        for(int j=0; j<=N; j++){
+            C[i+j] -= B[i]*A[j];
+        }
+    }
+
+    rep(i, M+1) cout << B[i] << endl;
+
+
+
     return 0;
 }

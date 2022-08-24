@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
+#define FOR(i,a,b) for(int i=(a);i<=(b);i++)
+#define rep(i,n) for(int i=0;i<(n);i++)
+#define rrep(i,n) for(int i=(n)-1;i>=0;i--)
 
 // A問題
 /*int main(){
@@ -55,7 +58,7 @@ using ll = long long;
 }*/
 
 // D問題
-bool isprime(int x){
+/*bool isprime(int x){
     if(x==2) return true;
     if(x==1) return false;
     for(int i=2; i*i<=x; i++){
@@ -86,4 +89,30 @@ int main(){
     cout << "Aoki" << endl;
 
     return 0;
+}*/
+
+// E問題
+int main(){
+    int N, Q; cin >> N >> Q;
+    vector<int> X(N);
+    rep(i, N) cin >> X[i];
+    vector<vector<int>> a(N, vector<int>());
+    // i番目の頂点にはX[i]の数字が書かれている
+    rep(i, N-1){
+        int x, x1; cin >> x >> x1;
+        a[x].push_back(x1);
+        a[x1].push_back(x);
+    }
+    // グラフを生成
+    vector<pair<int, int>> V(Q);
+    rep(i, Q){
+        int x, x1; cin >> x >> x1;
+        V[i] = make_pair(x, x1);
+    }
+
+
+
+
+    return 0;
 }
+
