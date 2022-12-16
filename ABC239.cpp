@@ -92,27 +92,61 @@ int main(){
 }*/
 
 // E問題
+
+void bfs(ll parent, vector<vector<ll>> &G, vector<ll> &X, vector<vector<ll>> &partialSet){
+
+    for(auto next : G[parent]){
+        bfs(next, G, X, partialSet);
+        rep(i, partialSet[next].size()){
+            if(i>=20) break;
+            partialSet[parent].push_back(partialSet[next][i]);
+        }
+    }
+
+    partialSet[parent].push_back(X[parent]);
+    sort(partialSet[parent].begin(), partialSet[parent].end(), greater<ll>());
+
+    return;
+}
+
 int main(){
     int N, Q; cin >> N >> Q;
-    vector<int> X(N);
+    vector<vector<ll>> G(N, vector<ll>());
+    // グラフの頂点を表す
+    vector<ll> X(N);
+    // 各頂点に入っている値を表す
+    vector<vector<ll>>  partialSet(N, vector<ll>());
+    // 各頂点を親とした時の子の要素を収納
+    vector<vector<ll>> a(N, vector<ll>());
+    vector<bool> used(N, false);
+    
     rep(i, N) cin >> X[i];
-    vector<vector<int>> a(N, vector<int>());
-    // i番目の頂点にはX[i]の数字が書かれている
     rep(i, N-1){
-        int x, x1; cin >> x >> x1;
-        a[x].push_back(x1);
-        a[x1].push_back(x);
+        ll A, B; cin >> A >> B;
+        A--; B--;
+        a[A].push_back(B); a[B].push_back(A);
     }
-    // グラフを生成
-    vector<pair<int, int>> V(Q);
+    queue<ll> nxt;
+    nxt.push(0);
+    used[0] = true;
+
+    while(!nxt.empty()){
+        ll x = nxt.front(); nxt.pop();
+        used[x] = true;
+        rep(j, a[x].size()){
+            if(used[a[x][j]]) continue;
+            G[x].push_back(a[x][j]);
+            nxt.push(a[x][j]);
+        }
+    }
+    
+
+    bfs(0, G, X, partialSet);
+
     rep(i, Q){
-        int x, x1; cin >> x >> x1;
-        V[i] = make_pair(x, x1);
+        int V, K; cin >> V >> K;
+        cout << partialSet[V-1][K-1] << endl;
     }
-
-
-
 
     return 0;
 }
-

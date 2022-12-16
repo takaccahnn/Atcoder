@@ -127,7 +127,7 @@ int main(){
         res += (i-1-sum(a[i]));
         add(a[i], 1);
     }
-    cout << res << endl
+    cout << res << endl;
 
     return 0;
 }
