@@ -28,6 +28,7 @@
         "string_view": "cpp",
         "unordered_set": "cpp",
         "valarray": "cpp",
-        "random": "cpp"
+        "random": "cpp",
+        "iomanip": "cpp"
     }
 }

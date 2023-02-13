@@ -93,26 +93,49 @@ using node = pair<ll, ll>;
 }*/
 
 //D問題
-long double f(double A, double B, ll a){
-    return B*a+A/sqrt(1+a);
+double f(ll* n, double A, double B){
+    return *n*B + A/(sqrt(1+*n));
 }
 
+/*int main(){
+    double A, B; cin >> A >> B;
+    double frac = A/(2*B);
+    // cout << (double)pow(frac, 2/3) << endl;
+    double x = pow(frac, 2.0/3.0) -1;
+    // cout << x << endl;
+    double ans = 1e18;
+    for(ll i = x-2; i<=x+2; i++){
+        if(i<0) continue;
+        ans = min(ans, f(i, A, B));
+    }
 
+    cout << ans << endl;
+}*/
 
 int main(){
-    long double A, B; cin >> A >> B;
-    long double frac = A/(2*B);
-    long double x = (long long)pow(frac, 2/3) -1;
-    ll right, left;
-    right = (ll)x+1;
-    left = (ll)x-1;
-    cout << "x=" << frac << endl;
-
-    if(x<=0){
-        cout << f(A, B, 0) << endl;
-        return 0;
-    } else {
-        cout << min(f(A, B, right), f(A, B, left)) << endl;
-        return 0;
+    ll A, B; cin >> A >> B;
+    ll left, right; 
+    left = 0, right = 1e13;
+    ll mid1, mid2;
+    double mid1_time, mid2_time;
+    while((right-left)>2){
+        mid1 = (2*left+right)/3;
+        mid2 = (left+2*right)/3;
+        mid1_time = f(&mid1, A, B);
+        mid2_time = f(&mid2, A, B);
+        if(mid1_time>mid2_time){
+            left = mid1;
+        } else {
+            right = mid2;
+        }
     }
+    double ans = 1e13;
+    for(ll i=left-1; i<=right+1; i++){
+        ans = min(ans, f(&i, A, B));
+    }
+
+    cout << fixed << setprecision(10) << ans << endl;
 }
+
+
+

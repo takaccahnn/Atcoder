@@ -5,8 +5,9 @@ using namespace std;
 #define rep(i,n) for(int i=0;i<(n);i++)
 #define rrep(i,n) for(int i=(n)-1;i>=0;i--)
 using Graph = vector<vector<int>>;
-using node = pair<int, int>;
 using ll = long long;
+using node = pair<ll, ll>;
+
 
 // A問題
 /*int main(){
@@ -83,29 +84,35 @@ using ll = long long;
 }*/
 
 // D問題
-/*int main(){
+// (dp[][][](三次元配列を用いた動的計画法))
+int main(){
     int N, K; ll D; cin >> N >> K >> D;
-    vector<pair<ll, ll>> a(N);
-    rep(i, N){
-        ll temp, q, r;
-        cin >> temp;
-        q = temp/D; // 商
-        r = temp%D; //　余り
-        a[i] = make_pair(q, r);
+    vector<ll> a(N);
+    rep(i, N) cin >> a[i];
+    vector<vector<vector<ll>>> dp(K+1, vector<vector<ll>>(N+1, vector<ll>(D, -1)));
+    // i個使った、jまでに、その時のあまりk
+
+    dp[0][0][0] = 0;
+
+    rep(i, K){
+        rep(j, N){
+            rep(k, D){
+                if(dp[i][j][k]==-1) continue;
+                if(i>j) continue;
+                dp[i][j+1][k] = max(dp[i][j][k],
+                    dp[i][i+1][k]);
+                dp[i+1][j+1][(k+a[j])%D] = max(dp[i+1][j+1][(k+a[j])%D],
+                    dp[i][j][k]+a[j]);
+            }
+        }
     }
-
-    sort(a.begin(), a.end());
-
-    ll ansP, ansR;
-
-    for(int i=N-1; i>=N-K; i--){
-        ansP = a[i].first;
-        ansR = a[i].second;
-    }
-}*/
+    
+    cout << dp[K][N][0] << endl;
+    
+}
 
 // E問題
-int main(){
+/*int main(){
     int N, M, K; cin >> N >> M >> K;
     vector<ll> kari(N); 
     rep(i, N) cin >> kari[i];
@@ -138,4 +145,4 @@ int main(){
         }
         cout << sum << endl;
     }
-}
+}*/
